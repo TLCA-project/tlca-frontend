@@ -2,8 +2,7 @@
     "assessment": {
         "_": "Assessment | Assessments",
         "nb_of": "Number of assessments",
-        "no": "There are no asessment avaiable for now.",
-        "category": "category"
+        "no": "There are no assessment available for now.",
     },
     "authentication": {
         "sign_in": "Sign in",

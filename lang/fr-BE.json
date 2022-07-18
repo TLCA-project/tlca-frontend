@@ -4,7 +4,6 @@
         "nb_of": "Nombre d'évaluations",
         "nb": "{nb} évaluation | {nb} évaluations",
         "no": "Il n'y a aucune évaluation disponible pour le moment.",
-        "category" : "catégorie"
     },
     "authentication": {
         "sign_in": "Se connecter",
