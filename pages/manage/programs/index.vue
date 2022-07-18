@@ -1,18 +1,18 @@
 <template>
   <ApolloQuery
-    :query="require('~/gql/learn/getCourses.gql')"
-    :update="(data) => data.courses"
+    :query="require('~/gql/manage/getPrograms.gql')"
+    :update="(data) => data.programs"
   >
-    <template #default="{ result: { error, data: courses }, isLoading }">
-      <div v-if="isLoading || courses">
-        <h2>{{ $tc('course._', 2) }}</h2>
+    <template #default="{ result: { error, data: programs }, isLoading }">
+      <div v-if="isLoading || programs">
+        <h2>{{ $tc('program._', 2) }}</h2>
 
         <v-row>
           <v-col cols="12" md="9">
             <card-list
               :component="component"
-              link-prefix="learn-"
-              :items="courses"
+              link-prefix="manage-"
+              :items="programs"
               :items-per-page="6"
               :cards-per-page="3"
               :prop-name="propName"
@@ -23,7 +23,7 @@
             md="3"
             :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
           >
-            <p>TODO Add info panel</p>
+            <p>Programs info panel</p>
           </v-col>
         </v-row>
       </div>
@@ -34,23 +34,18 @@
 </template>
 
 <script>
-import CourseCard from '~/components/cards/CourseCard.vue'
+import ProgramCard from '~/components/cards/ProgramCard.vue'
 
 export default {
-  name: 'LearnCoursesPage',
+  name: 'ManageProgramsPage',
   data() {
     return {
-      propName: 'course',
-      component: CourseCard,
-    }
-  },
-  head() {
-    return {
-      title: this.$tc('course._', 2) + ' | ' + this.$t('global.spaces.learn'),
+      propName: 'program',
+      component: ProgramCard,
     }
   },
   meta: {
-    roles: ['student'],
+    roles: ['teacher'],
   },
 }
 </script>

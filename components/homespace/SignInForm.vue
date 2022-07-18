@@ -33,13 +33,12 @@
               required
               autofocus
             ></v-text-field-with-validation>
-            <v-text-field-with-validation
+            <base-password-field-with-validation
               v-model="password"
-              type="password"
               :label="$t('user.password')"
               rules="required"
               required
-            ></v-text-field-with-validation>
+            />
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -69,6 +68,7 @@ export default {
       error: null,
       formBusy: false,
       password: '',
+      showPassword: false,
     }
   },
   watch: {
@@ -78,6 +78,7 @@ export default {
       }
     },
   },
+
   methods: {
     reset() {
       this.dialog = false
@@ -97,7 +98,7 @@ export default {
         if (response) {
           this.reset()
           this.$notificationManager.displaySuccessMessage(
-            this.$t('success.LOGIN_SUCCESSFUL')
+            this.$t('success.SIGN_IN_SUCCESSFUL')
           )
           return
         }

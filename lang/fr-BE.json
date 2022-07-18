@@ -18,19 +18,19 @@
             "basic": "Basique",
             "advanced": "Avancée"
         },
-        "code":  "@:global.code",
+        "code": "@:global.code",
         "coordinator": "@:global.coordinator",
         "create": "@:general.create une compétence",
         "description": "@:global.description._",
         "learning_outcomes": {
             "_": "Acquis d'apprentissage"
         },
-        "name":  "@:global.name",
+        "name": "@:global.name",
         "nb": "{nb} compétence | {nb} compétences",
         "nb_of": "Nombre de compétences",
-        "no": "Il n'y a pas de compétences disponibles pour le moment.",
+        "no": "Il n'y a pas de compétences pour le moment.",
         "partners": "@:global.partners",
-        "public": "@:global.public",
+        "public": "@:global.visibility.public",
         "show_by": {
             "level": "Montrer par niveau",
             "category": "Montrer par catégorie"
@@ -50,8 +50,15 @@
         "_": "Cours",
         "assessments-list":"Liste des évaluations du cours",
         "colophon": "Colophon",
-        "competencies": "Compétences",
+        "code": "@:global.code",
+        "competencies": {
+            "_": "Compétences",
+            "add": "Ajouter une compétence",
+            "category": "Catégorie",
+            "subcategory": "Sous-catégorie"
+        },
         "coordinator": "@:global.coordinator",
+        "create": "@:general.create un cours",
         "description": "@:global.description._",
         "field": "@:global.field",
         "filter": {
@@ -66,6 +73,7 @@
             "in_hours_per_week": "{hoursPerWeek} h/semaine",
             "in_theory_practice_hours": "{theoryHours}h+{practiceHours}h"
         },
+        "name": "@:global.name",
         "nb": "{nb} cours | {nb} cours",
         "nb_of": {
             "_": "Nombre de cours",
@@ -75,6 +83,14 @@
         },
         "no": "Il n'y a pas de cours disponibles pour le moment.",
         "register": "S'inscrire",
+        "registrations": {
+            "_": "@:registration._",
+            "date": "@:global.date",
+            "invites": "Invitations",
+            "name_or_email": "Nom ou e-mail",
+            "registered": "Inscrit(e)s",
+            "status": "@:general.status"
+        },
         "request_invite": "Demander une invitation",
         "schedule": {
             "_": "Calendrier",
@@ -89,12 +105,12 @@
             "in_weeks": "une semaine | {weeks} semaines"
         },
         "status": {
-            "_": "@:general.status",
-            "archived": "Archivé",
-            "archived_on": "Archivé le {date}",
-            "published": "Publié",
-            "published_on": "Publié le {date}",
-            "unpublished": "Non publié"
+            "_": "@:global.status._",
+            "archived": "@:global.status.archived",
+            "archived_on": "@:global.status.archived_on",
+            "published": "@:global.status.published",
+            "published_on": "@:global.status.published_on",
+            "unpublished": "@:global.status.unpublished"
         },
         "tags": "@:global.tag",
         "teacher": "@:user.role.teacher | Enseignants",
@@ -115,18 +131,22 @@
     },
     "error": {
         "_": "Erreur",
+        "DUPLICATE_COMPETENCIES": "La même compétence ne peut pas être utilisée plus d'une fois",
         "EXISTING_EMAIL_ADDRESS": "Impossible de créer un compte avec cette adresse e-mail",
         "EXISTING_CODE": "Le code spécifié existe déjà",
         "INVALID_CREDENTIALS": "Mauvais identifiants",
         "INVALID_EMAIL_ADDRESS": "Mauvaise adresse e-mail",
         "INVALID_PASSWORD": "Mot de passe pas assez fort",
         "INVITE_REQUEST_FAILED": "Demande d'invitation échouée",
-        "MISSING_FIELDS": "Certains champs obligatoires sont manquants"
+        "MISSING_BASIC_COMPETENCY": "Il doit y avoir au moins une compétence basique",
+        "MISSING_FIELDS": "Certains champs obligatoires sont manquants",
+        "REGISTRATION_FAILED": "Inscription échouée"
     },
     "general": {
         "action": "Action | Actions",
         "cancel": "Annuler",
         "create": "Créer",
+        "edit": "Éditer",
         "filter": {
             "_": "Filtre"
         },
@@ -137,13 +157,14 @@
             "optional": "@:general.information._ optionnelle"
         },
         "owner": "Propriétaire",
-        "reset": "Reset",
+        "reset": "Réinitialiser",
         "status": "Statut",
         "validated": "Validé"
     },
     "global": {
         "coordinator": "Coordinateur",
         "code":  "Code",
+        "date": "Date",
         "description": {
             "_": "Description",
             "no": "Pas de @.lower:global.description._"
@@ -160,6 +181,14 @@
             "learn": "Apprendre",
             "manage": "Gérer",
             "teach": "Enseigner"
+        },
+        "status": {
+            "_": "@:general.status",
+            "archived": "Archivé",
+            "archived_on": "Archivé le {date}",
+            "published": "Publié",
+            "published_on": "Publié le {date}",
+            "unpublished": "Non publié"
         },
         "tag": "Tag | Tags",
         "type": {
@@ -191,6 +220,14 @@
         "field": "@:global.field",
         "language": "@:global.language",
         "no": "Il n'y a pas de programmes disponibles pour le moment.",
+        "status": {
+            "_": "@:global.status._",
+            "archived": "@:global.status.archived",
+            "archived_on": "@:global.status.archived_on",
+            "published": "@:global.status.published",
+            "published_on": "@:global.status.published_on",
+            "unpublished": "@:global.status.unpublished"
+        },
         "tags": "@:global.tag",
         "type": {
             "_": "@:global.type._",
@@ -199,7 +236,7 @@
         }
     },
     "registration": {
-        "_": "Inscription | Inscription",
+        "_": "Inscription | Inscriptions",
         "date": "Date d'inscription",
         "invite_request_sent": "Demande d'invitation envoyée",
         "invite_received": "Invitation reçue",
@@ -212,7 +249,9 @@
     },
     "success": {
         "_": "Succès",
-        "LOGIN_SUCCESSFUL": "Connecté(e) avec succès !",
+        "COURSE_CREATED": "Cours créé avec succès !",
+        "SIGN_IN_SUCCESSFUL": "Connecté(e) avec succès !",
+        "SIGN_UP_SUCCESSFUL": "Inscrit(e) avec succès !",
         "REGISTERED": "Inscrit(e) avec succès !",
         "REQUEST_INVITE_SENT": "Demande d'invitation envoyée avec succès !"
     },

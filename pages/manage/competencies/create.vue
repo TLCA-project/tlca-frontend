@@ -1,7 +1,5 @@
 <template>
   <div>
-    <bread-crumb :primary-title="$t('general.create')" />
-
     <h2 v-t="'competency.create'"></h2>
 
     <ValidationObserver ref="form" v-slot="{ handleSubmit }">

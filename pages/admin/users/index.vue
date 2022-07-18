@@ -5,8 +5,6 @@
   >
     <template #default="{ result: { error, data }, isLoading }">
       <div v-if="isLoading || data">
-        <bread-crumb />
-
         <h2>{{ $tc('user._', 2) }}</h2>
 
         <v-data-table

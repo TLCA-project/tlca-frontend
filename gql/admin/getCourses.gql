@@ -1,8 +1,9 @@
 query GetCourses {
-  courses(view: USER) {
-    banner
+  courses {
     code
     name
+    status
     type
+    visibility
   }
 }
