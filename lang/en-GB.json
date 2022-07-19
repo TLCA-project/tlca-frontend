@@ -1,7 +1,18 @@
 {
     "assessment": {
         "_": "Assessment | Assessments",
-        "nb_of": "Number of assessments"
+        "competencies": "Competencies",
+        "description": "@:global.description._",
+        "deadline": {
+            "_": "Deadline",
+            "date": "Deadline : {deadline}"
+        },
+        "nb_of": "Number of assessments",
+        "no": "There are no assessment available for now.",
+        "start": {
+            "_": "Opening",
+            "date": "Opens on : {start}"
+        }
     },
     "authentication": {
         "sign_in": "Sign in",
