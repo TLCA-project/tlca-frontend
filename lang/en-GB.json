@@ -11,6 +11,7 @@
       "project": "Project",
       "quiz": "Quiz"
     },
+    "closed": "Closed",
     "code": "@:global.code",
     "competencies": {
       "_": "Competencies",
@@ -19,6 +20,7 @@
       "stars": "Stars"
     },
     "create": "@:general.create an assessment",
+    "create_event": "Create an event",
     "deadline": {
       "_": "Deadline",
       "date": "Deadline : {deadline}"
@@ -29,6 +31,14 @@
     },
     "description": "@:global.description._",
     "filter_by_competency": "Filter by competency",
+    "group_by_category": "Group by category",
+    "incremental": "Incremental",
+    "instances": {
+      "_": "Instances",
+      "infinite": "Infinite",
+      "max_nb": "Maximal number of instances",
+      "nb": "{n} instance | {n} instances"
+    },
     "load": {
       "_": "@:global.workload",
       "defense": "Oral defense",
@@ -39,6 +49,7 @@
     "nb": "{nb} evaluation | {nb} evaluations",
     "nb_of": "Number of assessments",
     "no": "There are no assessment for now",
+    "openness": "Openness",
     "oral_defense": "Oral defense",
     "schedule": {
       "_": "Schedule",
@@ -49,12 +60,23 @@
     "start": {
       "_": "Opening",
       "date": "Opens on : {start}"
-    }
+    },
+    "takes": "Takes",
+    "type": {
+      "_": "@:global.type._",
+      "incremental": "Incremental",
+      "phased": "Phased",
+      "single_take": "Single take"
+    },
+    "visibility": "@:global.visibility._"
   },
   "authentication": {
     "sign_in": "Sign in",
     "sign_out": "Sign out",
     "sign_up": "Sign up"
+  },
+  "calendar": {
+    "_": "Calendar"
   },
   "competency": {
     "_": "Competency | Competencies",
@@ -72,13 +94,17 @@
       "partners": "Affiliations"
     },
     "description": "@:global.description._",
+    "edit": "@:general.edit a competency",
     "filter": {
       "creator": "@:general.creator",
       "tags": "Tags",
       "visibility": "@:global.visibility._"
     },
     "learning_outcomes": {
-      "_": "Learning outcomes"
+      "_": "Learning outcomes",
+      "add": "Add a learning outcome",
+      "name": "@:global.name",
+      "no": "There are no learning outcomes for now."
     },
     "name": "@:global.name",
     "nb": "{nb} competency | {nb} competencies",
@@ -124,7 +150,8 @@
       "_": "Competencies",
       "add": "Add a competency",
       "category": "Category",
-      "subcategory": "Subcategory"
+      "subcategory": "Subcategory",
+      "use_lo": "Use LO"
     },
     "competency_coverage": "Competency coverage",
     "coordinator": "@:global.coordinator",
@@ -302,6 +329,7 @@
       "optional": "Optional @.lower:general.information._"
     },
     "list": "List",
+    "max_nb": "Max number",
     "owner": "Owner",
     "reset": "Reset",
     "send": "Send",
@@ -309,6 +337,7 @@
       "_": "Statistics"
     },
     "status": "Status",
+    "today": "Today",
     "update": "Update",
     "upload": "Upload",
     "upload_click_drag": "Click or drag the file here to upload",
@@ -378,6 +407,8 @@
     "_": "Partner | Partners",
     "abbreviation": "Abbreviation",
     "code": "@:global.code",
+    "create": "@:general.create a partner",
+    "description": "@:global.description",
     "name": "@:global.name",
     "no": "There are no partners available for now.",
     "website": "Website"

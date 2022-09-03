@@ -28,11 +28,31 @@
           <v-btn
             small
             :to="{
+              name: 'teach-courses-code-assessments',
+              params: { code: $route.params.code },
+            }"
+          >
+            Assessments
+          </v-btn>
+
+          <v-btn
+            small
+            :to="{
               name: 'teach-courses-code-evaluations',
               params: { code: $route.params.code },
             }"
           >
             Evaluations
+          </v-btn>
+
+          <v-btn
+            small
+            :to="{
+              name: 'teach-courses-code-calendar',
+              params: { code: $route.params.code },
+            }"
+          >
+            Calendar
           </v-btn>
         </v-col>
 

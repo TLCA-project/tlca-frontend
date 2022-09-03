@@ -2,13 +2,13 @@
   <div>
     <h2>{{ title }}</h2>
 
-    <form-competency />
+    <form-partner />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ManageCreateCompetencyPage',
+  name: 'ManagePartnerCreatePage',
   head() {
     return {
       title: this.title,
@@ -16,11 +16,11 @@ export default {
   },
   computed: {
     title() {
-      return this.$t('competency.create')
+      return this.$t('partner.create')
     },
   },
   meta: {
-    roles: ['teacher'],
+    roles: ['manager'],
   },
 }
 </script>

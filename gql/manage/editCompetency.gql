@@ -1,5 +1,5 @@
-mutation CreateCompetency(
-  $code: String!
+mutation EditCompetency(
+  $code: ID!
   $description: String
   $learningOutcomes: [String!]
   $name: String!
@@ -8,7 +8,7 @@ mutation CreateCompetency(
   $tags: [String!]
   $type: CompetencyType
 ) {
-  createCompetency(
+  editCompetency(
     code: $code
     description: $description
     learningOutcomes: $learningOutcomes

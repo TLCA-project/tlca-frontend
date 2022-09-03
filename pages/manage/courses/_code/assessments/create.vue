@@ -63,22 +63,52 @@
           </v-stepper-content>
 
           <v-stepper-step editable step="2">
-            {{ $t('assessment.competencies._') }}
+            {{ $t('assessment.takes') }}
           </v-stepper-step>
 
           <v-stepper-content step="2">
+            <v-row>
+              <v-col cols="12" md="4">
+                <v-text-field-with-validation
+                  v-model="instances"
+                  clearable
+                  :hint="$t('general.max_nb')"
+                  :label="$t('assessment.instances')"
+                  rules="positive"
+                  type="number"
+                  vid="instances"
+                />
+              </v-col>
+
+              <v-col cols="12" md="4">
+                <v-switch
+                  v-model="isIncremental"
+                  class="ml-3"
+                  dense
+                  :label="$t('assessment.incremental')"
+                />
+              </v-col>
+            </v-row>
+          </v-stepper-content>
+
+          <v-stepper-step editable step="3">
+            {{ $t('assessment.competencies._') }}
+          </v-stepper-step>
+
+          <v-stepper-content step="3">
             <select-assessment-competencies
               v-model="competencies"
+              class="mb-3"
               :disabled="formBusy"
               vid="competencies"
             />
           </v-stepper-content>
 
-          <v-stepper-step editable step="3">
+          <v-stepper-step editable step="4">
             {{ $t('assessment.schedule._') }}
           </v-stepper-step>
 
-          <v-stepper-content step="3">
+          <v-stepper-content step="4">
             <v-row>
               <v-col cols="12" md="6">
                 <date-time-field-with-validation
@@ -86,34 +116,44 @@
                   :label="$t('assessment.schedule.start')"
                   vid="start"
                 />
-              </v-col>
 
-              <v-col cols="12" md="6">
                 <date-time-field-with-validation
                   v-model="end"
                   :label="$t('assessment.schedule.end')"
                   vid="end"
                 />
               </v-col>
+
+              <v-col cols="12" md="1"></v-col>
+
+              <v-col cols="12" md="5">
+                <v-switch
+                  v-model="createEvent"
+                  :disabled="!canCreateEvent"
+                  :label="$t('assessment.create_event')"
+                />
+              </v-col>
             </v-row>
           </v-stepper-content>
 
-          <v-stepper-step editable step="4">
+          <v-stepper-step editable step="5">
             {{ $t('general.information.additional') }}
           </v-stepper-step>
 
-          <v-stepper-content step="4">
+          <v-stepper-content step="5">
             <v-switch
               v-model="hasOralDefense"
+              class="ml-3"
+              dense
               :label="$t('assessment.oral_defense')"
             />
           </v-stepper-content>
 
-          <v-stepper-step editable step="5">
+          <v-stepper-step editable step="6">
             {{ $t('global.workload') }}
           </v-stepper-step>
 
-          <v-stepper-content step="5">
+          <v-stepper-content step="6">
             <v-row>
               <v-col cols="12" md="4">
                 <b>{{ $tc('course.learner', 1) }}</b>
@@ -191,11 +231,14 @@ export default {
       category: '',
       code: '',
       competencies: [{}],
+      createEvent: false,
       description: '',
       end: '',
       formBusy: false,
       formError: null,
       hasOralDefense: false,
+      instances: '',
+      isIncremental: false,
       name: '',
       load: {
         defense: '',
@@ -211,6 +254,9 @@ export default {
     }
   },
   computed: {
+    canCreateEvent() {
+      return this.start && this.end
+    },
     categories() {
       const categories = [
         'quiz',
@@ -246,11 +292,14 @@ export default {
         code: this.code,
         course: this.$route.params.code,
         competencies: this.competencies,
+        createEvent: this.createEvent,
         description: this.description,
         end: this.end,
-        hasOralDefense: this.hasOralDefense,
+        incremental: this.isIncremental,
+        instances: parseInt(this.instances, 10),
         load,
         name: this.name,
+        oralDefense: this.hasOralDefense,
         start: this.start,
       }
 
@@ -294,10 +343,13 @@ export default {
       this.category = ''
       this.code = ''
       this.competencies = [{}]
+      this.createEvent = false
       this.description = ''
       this.end = ''
       this.formError = null
       this.hasOralDefense = false
+      this.instances = ''
+      this.isIncremental = false
       this.name = ''
       this.load = {
         defense: '',

@@ -4,6 +4,9 @@
 
 <script>
 export default {
-  name: 'ManagePartnersPage',
+  name: 'ManagePartnerPage',
+  meta: {
+    roles: ['manager'],
+  },
 }
 </script>
