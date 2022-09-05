@@ -11,11 +11,19 @@
       "project": "Project",
       "quiz": "Quiz"
     },
+    "checklist": {
+      "_": "Checklist",
+      "add_item": "Add item",
+      "no": "No checklist",
+      "private": "Private checklist",
+      "public": "Public checklist"
+    },
     "closed": "Closed",
     "code": "@:global.code",
     "competencies": {
       "_": "Competencies",
       "add": "Add a competency",
+      "max_stars": "Max stars",
       "optional": "Optional",
       "stars": "Stars"
     },
@@ -30,6 +38,7 @@
       "dialog_instructions": "Are you sure you want to delete this assessment?"
     },
     "description": "@:global.description._",
+    "edit": "@:general.edit an assessment",
     "filter_by_competency": "Filter by competency",
     "group_by_category": "Group by category",
     "incremental": "Incremental",
@@ -51,6 +60,7 @@
     "no": "There are no assessment for now",
     "openness": "Openness",
     "oral_defense": "Oral defense",
+    "progress_measure": "Progress measure",
     "schedule": {
       "_": "Schedule",
       "end": "End date",
@@ -102,6 +112,7 @@
     },
     "learning_outcomes": {
       "_": "Learning outcomes",
+      "abbr": "LO",
       "add": "Add a learning outcome",
       "name": "@:global.name",
       "no": "There are no learning outcomes for now."
@@ -136,10 +147,11 @@
     },
     "assessments": {
       "_": "@:assessment._",
-      "list": "Assessments list"
+      "coverage": "Coverage",
+      "list": "Assessments list",
+      "timeline": "Timeline"
     },
     "assessments_list": "Available assessments",
-    "assessments_timeline": "Assessments timeline",
     "clone": {
       "_": "Clone",
       "dialog_instructions": "Enter the code to use for the cloned course (choose a not existing one). Leave empty to auto-generate."
@@ -153,7 +165,6 @@
       "subcategory": "Subcategory",
       "use_lo": "Use LO"
     },
-    "competency_coverage": "Competency coverage",
     "coordinator": "@:global.coordinator",
     "create": "@:general.create a course",
     "description": "@:global.description._",
@@ -331,6 +342,7 @@
     "list": "List",
     "max_nb": "Max number",
     "owner": "Owner",
+    "plus_other": "(+ {n} other) | (+ {n} others)",
     "reset": "Reset",
     "send": "Send",
     "statistics": {
@@ -489,7 +501,9 @@
   },
   "success": {
     "_": "Success",
-    "ASSESSMENT_DELETE": "Assessment successfully deleted!",
+    "ASSESSMENT_CREATE": "Assessment successfully created",
+    "ASSESSMENT_DELETE": "Assessment successfully deleted",
+    "ASSESSMENT_EDIT": "Assessment successfully updated",
     "BANNER_UPDATED": "Banner successfully updated!",
     "COMPETENCY_CREATED": "Competency successfully created!",
     "COURSE_ARCHIVED": "Course successfully archived!",

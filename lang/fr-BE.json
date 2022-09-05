@@ -11,11 +11,19 @@
       "project": "Projet",
       "quiz": "Quiz"
     },
+    "checklist": {
+      "_": "Checklist",
+      "add_item": "Ajouter un élément",
+      "no": "Pas de checklist",
+      "private": "Checklist privée",
+      "public": "Checklist publique"
+    },
     "closed": "Fermée",
     "code": "@:global.code",
     "competencies": {
       "_": "Compétences",
       "add": "Ajouter une compétence",
+      "max_stars": "Étoiles max",
       "optional": "Optionnelle",
       "stars": "Étoiles"
     },
@@ -30,6 +38,7 @@
       "dialog_instructions": "Êtes-vous sûr de vouloir supprimer cette évaluation ?"
     },
     "description": "@:global.description._",
+    "edit": "@:general.edit une évaluation",
     "filter_by_competency": "Filtrer par compétence",
     "group_by_category": "Grouper par catégorie",
     "incremental": "Incrémental",
@@ -51,6 +60,7 @@
     "no": "Il n'y a aucune évaluation pour le moment",
     "openness": "Ouverture",
     "oral_defense": "Défense orale",
+    "progress_measure": "Mesure du progrès",
     "schedule": {
       "_": "Calendrier",
       "end": "Date de fin",
@@ -102,6 +112,7 @@
     },
     "learning_outcomes": {
       "_": "Acquis d'apprentissage",
+      "abbr": "AA",
       "add": "Ajouter un acquis d'apprentissage",
       "name": "@:global.name",
       "no": "Il n'y a pas d'acquis d'apprentissage pour le moment."
@@ -136,10 +147,11 @@
     },
     "assessments": {
       "_": "@:assessment._",
-      "list": "Liste des évaluations"
+      "coverage": "Couverture",
+      "list": "Liste des évaluations",
+      "timeline": "Ligne du temps"
     },
     "assessments_list": "Liste des évaluations du cours",
-    "assessments_timeline": "Ligne du temps des évaluations",
     "clone": {
       "_": "Cloner",
       "dialog_instructions": "Entrer le code à utiliser pour le cours cloné (choisissez-en un non existant). Laisser vide pour auto-générer."
@@ -153,7 +165,6 @@
       "subcategory": "Sous-catégorie",
       "use_lo": "Utiliser les AA"
     },
-    "competency_coverage": "Couverture des compétences",
     "coordinator": "@:global.coordinator",
     "create": "@:general.create un cours",
     "description": "@:global.description._",
@@ -331,6 +342,7 @@
     "list": "Liste",
     "max_nb": "Nombre maximal",
     "owner": "Propriétaire",
+    "plus_other": "(+ {n} autre) | (+ {n} autres)",
     "reset": "Réinitialiser",
     "send": "Envoyer",
     "statistics": {
@@ -489,7 +501,9 @@
   },
   "success": {
     "_": "Succès",
-    "ASSESSMENT_DELETE": "Évaluation supprimée avec succès !",
+    "ASSESSMENT_CREATE": "Évaluation créée avec succès",
+    "ASSESSMENT_DELETE": "Évaluation supprimée avec succès",
+    "ASSESSMENT_EDIT": "Évaluation modifiée avec succès",
     "BANNER_UPDATED": "Bannière mise à jour avec succès !",
     "COMPETENCY_CREATED": "Compétence créée avec succès !",
     "COURSE_ARCHIVED": "Cours archivé avec succès !",
