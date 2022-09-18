@@ -2,7 +2,7 @@ mutation CreateCourse(
   $code: String!
   $colophon: String
   $competencies: [CourseCompetencyInput!]!
-  $description: String
+  $description: String!
   $field: String
   $groups: CourseGroupInput
   $language: String
@@ -13,7 +13,7 @@ mutation CreateCourse(
   $span: Int
   $tags: [String!]
   $teachers: [ID!]
-  $type: CourseType
+  $type: CourseType!
   $visibility: Visibility
 ) {
   createCourse(

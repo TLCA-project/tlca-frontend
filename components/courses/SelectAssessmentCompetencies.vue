@@ -99,11 +99,6 @@
                 <v-col cols="12" md="6">
                   <stars-field-with-validation
                     v-model="competency.stars"
-                    background-color="grey"
-                    dense
-                    empty-icon="mdi-star-outline"
-                    full-icon="mdi-star"
-                    hover
                     length="3"
                     rules="stars_required"
                     :vid="`competency-stars-${index}`"
@@ -239,7 +234,7 @@ export default {
       }
     },
     courseCompetencies(course) {
-      return course.competencies.map((c) => c.competency)
+      return course?.competencies.map((c) => c.competency)
     },
     learningOutcomes(course, index) {
       return this._competency(course, index).competency.learningOutcomes.map(
@@ -251,11 +246,11 @@ export default {
       return this.$t('competency.learning_outcomes.abbr') + ' ' + loNb
     },
     loFullName(item) {
-      return this.loAbbr(item) + ' – ' + item.text
+      return this.loAbbr(item) + ' – ' + item.text.name
     },
     removeCompetency(index) {
       if (!this.disabled) {
-        this.competencies = this.competencies.splice(index, 1)
+        this.competencies.splice(index, 1)
       }
     },
     useLearningOutcomes(course, index) {

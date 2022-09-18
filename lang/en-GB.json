@@ -47,6 +47,9 @@
       "max_nb": "Maximal number of instances",
       "nb": "{n} instance | {n} instances"
     },
+    "learning_outcomes": {
+      "targeted": "Targeted @.lower:competency.learning_outcomes._"
+    },
     "load": {
       "_": "@:global.workload",
       "defense": "Oral defense",
@@ -68,8 +71,9 @@
     },
     "progress_measure": "Progress measure",
     "schedule": {
-      "_": "Schedule",
+      "_": "Assessment @.lower:global.schedule._",
       "end": "End date",
+      "no": "@:global.schedule.no",
       "start": "Start date"
     },
     "show_selected": "Show only selected rows",
@@ -84,7 +88,10 @@
       "phased": "Phased",
       "single_take": "Single take"
     },
-    "visibility": "@:global.visibility._"
+    "visibility": "@:global.visibility._",
+    "work_plan": {
+      "_": "Work plan"
+    }
   },
   "authentication": {
     "sign_in": "Sign in",
@@ -175,6 +182,7 @@
     "coordinator": "@:global.coordinator",
     "create": "@:general.create a course",
     "description": "@:global.description._",
+    "edit": "@:general.edit a course",
     "field": "@:global.field",
     "filter": {
       "role": "Role",
@@ -196,11 +204,6 @@
         "add": "Add a working group",
         "no": "There are no working groups for now."
       }
-    },
-    "invitation": {
-      "dialog_instructions": "Enter the email address of the person to invite to the course. This person will receive the invitation directly on the platform or by email (if he/she does not have a TLCA account), and can decide whether to accept it or not.",
-      "request": "Request an invitation",
-      "send": "Send an invitation"
     },
     "language": "@:global.language",
     "learner": "@:learner._",
@@ -235,22 +238,19 @@
     "register": "Register",
     "registrations": {
       "_": "@:registration._",
-      "date": "@:global.date",
       "group": "Group",
       "group_name": "Group {nb}",
       "invites": "Invites",
       "list": "Registrations list",
-      "name_or_email": "Name or email",
       "no_group": "No group",
       "registered": "Registered",
-      "status": "@:general.status",
       "without_group": "Without group"
     },
     "schedule": {
-      "_": "Schedule",
+      "_": "Course @.lower:global.schedule._",
       "end": "End date",
       "evaluationsEnd": "End of evaluations",
-      "no": "No schedule",
+      "no": "@:global.schedule.no",
       "registrationsEnd": "End of registrations",
       "registrationsStart": "Start of registrations",
       "start": "Start date"
@@ -275,7 +275,7 @@
       "project": "Project",
       "training": "@:global.type.training",
       "ucourse": "µCourse",
-      "unit": "Unit"
+      "unit": "@:global.type.unit"
     },
     "visibility": {
       "_": "@:global.visibility._",
@@ -293,6 +293,7 @@
     "BANNER_UPDATE_ERROR": "An unexpected error occurred while updating the banner.",
     "DUPLICATE_COMPETENCIES": "The same competency cannot be used more than once",
     "DUPLICATE_COURSES": "The same course cannot be used more than once",
+    "EMAIL_VALIDATION": "An unexpected error occurred while validating your email address",
     "EXISTING_CODE": "The specified code already exists",
     "EXISTING_EMAIL_ADDRESS": "Impossible to create an account with this email address",
     "INVALID_CREDENTIALS": "Invalid credentials",
@@ -307,7 +308,9 @@
     "MISSING_PHASES": "Phases are not defined",
     "PROGRAM_PUBLICATION_FAILED": "An unexpected error occurred while publishing the program",
     "REGISTRATION_FAILED": "Registration failed",
-    "UNPUBLISHED_PROGRAM_COURSES": "Some courses in the program are not published"
+    "UNCONFIRMED_EMAIL_ADDRESS": "Email address not confirmed yet",
+    "UNPUBLISHED_PROGRAM_COURSES": "Some courses in the program are not published",
+    "VALIDATION_ERROR": "Some fields contain an invalid value"
   },
   "evaluation": {
     "_": "Evaluation | Evaluations",
@@ -331,6 +334,7 @@
     "confirmation": "Confirmation",
     "create": "Create",
     "creator": "Creator",
+    "dashboard": "Dashboard",
     "delete": "Delete",
     "edit": "Edit",
     "filter": {
@@ -357,11 +361,16 @@
       "_": "Statistics"
     },
     "status": "Status",
+    "time": {
+      "minutes": "{n} minute | {n} minutes"
+    },
     "today": "Today",
     "update": "Update",
     "upload": "Upload",
     "upload_click_drag": "Click or drag the file here to upload",
-    "validated": "Validated"
+    "validate": "Validate",
+    "validated": "Validated",
+    "yes": "Yes"
   },
   "global": {
     "banner": {
@@ -382,6 +391,10 @@
     "partners": "Partners",
     "powered_by": "Powered by",
     "publish": "Publish",
+    "schedule": {
+      "_": "Schedule",
+      "no": "No schedule"
+    },
     "spaces": {
       "_": "Space | Spaces",
       "admin": "Admin",
@@ -401,7 +414,8 @@
     "tag": "Tag | Tags",
     "type": {
       "_": "Type",
-      "training": "Training"
+      "training": "Training",
+      "unit": "Unit"
     },
     "visibility": {
       "_": "Visibility",
@@ -444,6 +458,7 @@
     },
     "create": "@:general.create a program",
     "description": "@:global.description._",
+    "edit": "@:general.edit a program",
     "field": "@:global.field",
     "filter": {
       "status": "@:general.status"
@@ -464,6 +479,7 @@
     "type": {
       "_": "@:global.type._",
       "training": "@:global.type.training",
+      "unit": "@:global.type.unit",
       "uprogram": "µProgram"
     },
     "visibility": {
@@ -479,16 +495,20 @@
     "date": "Registration date",
     "invitation": {
       "_": "Invitation",
+      "accept": "Accept the invitation",
+      "dialog_instructions": "Enter the email address of the person to invite to the course. This person will receive the invitation directly on the platform or by email (if he/she does not have a TLCA account), and can decide whether to accept it or not.",
       "received": {
         "_": "Invitation received"
       },
       "request": {
         "_": "Invitation request",
+        "__": "Request an invitation",
         "nb_of": "Number of invitation requests",
         "received": "Invitation requests received",
         "sent": "Invitation request sent",
         "too_old": "The oldest invitation request is more than {days} days old"
       },
+      "send": "Send an invitation",
       "sent": {
         "_": "Invitations sent",
         "nb_of": "Number of invitations sent",
@@ -496,6 +516,7 @@
         "too_old": "The oldest invitation was sent more than {days} days ago"
       }
     },
+    "name_or_email": "Name or email",
     "nb_of": "Number of registrations",
     "no": "There are no registration for now",
     "open": "Open",
@@ -509,6 +530,7 @@
   },
   "success": {
     "_": "Success",
+    "ACCEPT_INVITATION": "Successfully accepted the invitation",
     "ASSESSMENT_CREATE": "Assessment successfully created",
     "ASSESSMENT_DELETE": "Assessment successfully deleted",
     "ASSESSMENT_EDIT": "Assessment successfully updated",
@@ -517,11 +539,12 @@
     "COURSE_ARCHIVED": "Course successfully archived!",
     "COURSE_CREATED": "Course successfully created!",
     "COURSE_PUBLISHED": "Course successfully published!",
+    "EMAIL_VALIDATION": "Email address successfully validated, you can now log in on the TLCA platform",
     "INVITATION_SEND": "Invitation successfully sent!",
     "PROGRAM_CREATED": "Program successfully created!",
     "PROGRAM_PUBLISHED": "Program successfully published!",
-    "REGISTERED": "Successfully registered!",
-    "REQUEST_INVITE_SENT": "Invite request successfully sent!",
+    "REGISTER": "Successfully registered",
+    "REQUEST_INVITATION": "Successfully requested an invitation",
     "SIGN_IN_SUCCESSFUL": "Successfully signed in!",
     "SIGN_UP_SUCCESSFUL": "Successfully signed up!"
   },
@@ -540,6 +563,10 @@
       "user": "User"
     },
     "username": "Username",
-    "username_or_email": "Username or email"
+    "username_or_email": "Username or email",
+    "validate_email": {
+      "_": "Validate email address",
+      "dialog_instructions": "Validate your email address by clicking on the button to be able to log in on the TLCA platform."
+    }
   }
 }

@@ -47,6 +47,9 @@
       "max_nb": "Nombre d'instances max",
       "nb": "{n} instance | {n} instances"
     },
+    "learning_outcomes": {
+      "targeted": "@:competency.learning_outcomes._ visé(s)"
+    },
     "load": {
       "_": "@:global.workload",
       "defense": "Défense orale",
@@ -68,8 +71,9 @@
     },
     "progress_measure": "Mesure du progrès",
     "schedule": {
-      "_": "Calendrier",
+      "_": "@:global.schedule._ de l'évaluation",
       "end": "Date de fin",
+      "no": "@:global.schedule.no",
       "start": "Date de début"
     },
     "show_selected": "Filtrer sur la sélection",
@@ -84,7 +88,10 @@
       "phased": "Phasé",
       "single_take": "Passage unique"
     },
-    "visibility": "@:global.visibility._"
+    "visibility": "@:global.visibility._",
+    "work_plan": {
+      "_": "Plan de travail"
+    }
   },
   "authentication": {
     "sign_in": "Se connecter",
@@ -175,6 +182,7 @@
     "coordinator": "@:global.coordinator",
     "create": "@:general.create un cours",
     "description": "@:global.description._",
+    "edit": "@:general.edit un cours",
     "field": "@:global.field",
     "filter": {
       "role": "Rôle",
@@ -196,11 +204,6 @@
         "add": "Ajouter un groupe de travail",
         "no": "Il n'y a pas de groupes de travail pour le moment."
       }
-    },
-    "invitation": {
-      "dialog_instructions": "Entrer l'adresse e-mail de la personne à inviter au cours. Cette personne recevra l'invitation directement sur la plateforme ou par e-mail (si elle n'a pas de compte TLCA), et pourra décider de l'accepter ou non.",
-      "request": "Demander une invitation",
-      "send": "Envoyer une invitation"
     },
     "language": "@:global.language",
     "learner": "@:learner._",
@@ -235,22 +238,19 @@
     "register": "S'inscrire",
     "registrations": {
       "_": "@:registration._",
-      "date": "@:global.date",
       "group": "Groupe",
       "group_name": "Groupe {nb}",
       "invites": "Invitations",
       "list": "Liste des inscriptions",
-      "name_or_email": "Nom ou e-mail",
       "no_group": "Pas de groupe",
       "registered": "Inscrit(e)s",
-      "status": "@:general.status",
       "without_group": "Sans groupe"
     },
     "schedule": {
-      "_": "Calendrier",
+      "_": "@:global.schedule._ du cours",
       "end": "Date de fin",
       "evaluationsEnd": "Fin des évaluations",
-      "no": "Pas de calendrier",
+      "no": "@:global.schedule.no",
       "registrationsEnd": "Fin des inscriptions",
       "registrationsStart": "Début des inscriptions",
       "start": "Date de début"
@@ -275,7 +275,7 @@
       "project": "Projet",
       "training": "@:global.type.training",
       "ucourse": "µCours",
-      "unit": "Unité"
+      "unit": "@:global.type.unit"
     },
     "visibility": {
       "_": "@:global.visibility._",
@@ -293,6 +293,7 @@
     "BANNER_UPDATE_ERROR": "Une erreur inattendue s'est produite lors de la mise à jour de la bannière.",
     "DUPLICATE_COMPETENCIES": "La même compétence ne peut pas être utilisée plus d'une fois",
     "DUPLICATE_COURSES": "Le même cours ne peut pas être utilisé plus d'une fois",
+    "EMAIL_VALIDATION": "Une erreur inattendue s'est produite lors de la validation de votre adresse e-mail",
     "EXISTING_CODE": "Le code spécifié existe déjà",
     "EXISTING_EMAIL_ADDRESS": "Impossible de créer un compte avec cette adresse e-mail",
     "INVALID_CREDENTIALS": "Mauvais identifiants",
@@ -307,7 +308,9 @@
     "MISSING_PHASES": "Les phases ne sont pas définies",
     "PROGRAM_PUBLICATION_FAILED": "Une erreur inattendue s'est produite lors de la publication du programme",
     "REGISTRATION_FAILED": "Inscription échouée",
-    "UNPUBLISHED_PROGRAM_COURSES": "Certains cours du programme ne sont pas publiés"
+    "UNCONFIRMED_EMAIL_ADDRESS": "Adresse e-mail pas encore confirmée",
+    "UNPUBLISHED_PROGRAM_COURSES": "Certains cours du programme ne sont pas publiés",
+    "VALIDATION_ERROR": "Certains champs contiennent une valeur invalide"
   },
   "evaluation": {
     "_": "Évaluation | Évaluations",
@@ -331,6 +334,7 @@
     "confirmation": "Confirmation",
     "create": "Créer",
     "creator": "Créateur",
+    "dashboard": "Tableau de bord",
     "delete": "Supprimer",
     "edit": "Modifier",
     "filter": {
@@ -357,11 +361,16 @@
       "_": "Statistiques"
     },
     "status": "Statut",
+    "time": {
+      "minutes": "{n} minute | {n} minutes"
+    },
     "today": "Aujourd'hui",
     "update": "Mettre à jour",
     "upload": "Téléverser",
     "upload_click_drag": "Cliquez ou faites glisser le fichier ici pour le téléverser",
-    "validated": "Validé"
+    "validate": "Valider",
+    "validated": "Validé",
+    "yes": "Oui"
   },
   "global": {
     "banner": {
@@ -382,6 +391,10 @@
     "partners": "Partenaires",
     "powered_by": "Propulsé par",
     "publish": "Publier",
+    "schedule": {
+      "_": "Calendrier",
+      "no": "Pas de calendrier"
+    },
     "spaces": {
       "_": "Espace | Espaces",
       "admin": "Admin",
@@ -401,7 +414,8 @@
     "tag": "Tag | Tags",
     "type": {
       "_": "Type",
-      "training": "Formation"
+      "training": "Formation",
+      "unit": "Unité"
     },
     "visibility": {
       "_": "Visibilité",
@@ -444,6 +458,7 @@
     },
     "create": "@:general.create un programme",
     "description": "@:global.description._",
+    "edit": "@:general.edit un programme",
     "field": "@:global.field",
     "filter": {
       "status": "@:general.status"
@@ -464,6 +479,7 @@
     "type": {
       "_": "@:global.type._",
       "training": "@:global.type.training",
+      "unit": "@:global.type.unit",
       "uprogram": "µProgramme"
     },
     "visibility": {
@@ -479,16 +495,20 @@
     "date": "Date d'inscription",
     "invitation": {
       "_": "Invitation",
+      "accept": "Accepter l'invitation",
+      "dialog_instructions": "Entrer l'adresse e-mail de la personne à inviter au cours. Cette personne recevra l'invitation directement sur la plateforme ou par e-mail (si elle n'a pas de compte TLCA), et pourra décider de l'accepter ou non.",
       "received": {
         "_": "Invitation reçue"
       },
       "request": {
         "_": "Demande d'invitation",
+        "__": "Demander une invitation",
         "nb_of": "Nombre de demandes d'invitation",
         "received": "Demandes d'invitation reçues",
         "sent": "Demande d'invitation envoyée",
         "too_old": "La demande d'invitation la plus ancienne date d'il y a plus de {days} jours"
       },
+      "send": "Envoyer une invitation",
       "sent": {
         "_": "Invitations envoyées",
         "nb_of": "Nombre d'invitation envoyée",
@@ -496,6 +516,7 @@
         "too_old": "L'invitation la plus ancienne a été envoyée il y a plus de {days} jours"
       }
     },
+    "name_or_email": "Nom ou e-mail",
     "nb_of": "Nombre d'inscriptions",
     "no": "Il n'y a aucune inscription pour le moment",
     "open": "Ouvertes",
@@ -509,6 +530,7 @@
   },
   "success": {
     "_": "Succès",
+    "ACCEPT_INVITATION": "Invitation acceptée avec succès",
     "ASSESSMENT_CREATE": "Évaluation créée avec succès",
     "ASSESSMENT_DELETE": "Évaluation supprimée avec succès",
     "ASSESSMENT_EDIT": "Évaluation modifiée avec succès",
@@ -517,11 +539,12 @@
     "COURSE_ARCHIVED": "Cours archivé avec succès !",
     "COURSE_CREATED": "Cours créé avec succès !",
     "COURSE_PUBLISHED": "Cours publié avec succès !",
+    "EMAIL_VALIDATION": "Adresse e-mail validée avec succès, vous pouvez maintenant vous connecter sur la plateforme TLCA",
     "INVITATION_SEND": "Invitation envoyée avec succès !",
     "PROGRAM_CREATED": "Programme créé avec succès !",
     "PROGRAM_PUBLISHED": "Programme publié avec succès !",
-    "REGISTERED": "Inscrit(e) avec succès !",
-    "REQUEST_INVITE_SENT": "Demande d'invitation envoyée avec succès !",
+    "REGISTER": "Inscrit(e) avec succès",
+    "REQUEST_INVITATION": "Demande d'invitation envoyée avec succès",
     "SIGN_IN_SUCCESSFUL": "Connecté(e) avec succès !",
     "SIGN_UP_SUCCESSFUL": "Inscrit(e) avec succès !"
   },
@@ -540,6 +563,10 @@
       "user": "Utilisateur"
     },
     "username": "Nom d'utilisateur",
-    "username_or_email": "Nom d'utilisateur ou e-mail"
+    "username_or_email": "Nom d'utilisateur ou e-mail",
+    "validate_email": {
+      "_": "Valider l'adresse e-mail",
+      "dialog_instructions": "Valider votre adresse e-mail en cliquant sur le bouton pour pouvoir vous connecter sur la plateforme TLCA."
+    }
   }
 }

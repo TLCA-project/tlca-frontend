@@ -1,21 +1,18 @@
 <template>
   <ApolloQuery
-    v-slot="{ isLoading, result: { data, error } }"
-    :query="require('~/gql/manage/getCourseAssessments.gql')"
-    :variables="{ courseCode: $route.params.code }"
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/manage/getCourse.gql')"
+    :update="(data) => data.course"
+    :variables="{ code: courseCode }"
     @result="setTitle"
   >
-    <h2>{{ title }}</h2>
+    <page-title :loading="!!isLoading" :value="title" />
 
     <v-row v-if="!error">
       <v-col cols="12" md="9">
-        <v-progress-linear v-if="!!isLoading" :indeterminate="true" />
-
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
-            <v-tab>
-              {{ $tc('assessment._', data?.assessments?.length) }}
-            </v-tab>
+            <v-tab>{{ $tc('assessment._', 2) }}</v-tab>
 
             <!-- <v-tab v-if="data.assessments?.length"> -->
             <v-tab>
@@ -32,9 +29,7 @@
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
                 <assessments-list
-                  v-if="data"
-                  :course-code="data.course?.code"
-                  :items="data.assessments"
+                  :course-code="courseCode"
                   hide-openness
                   hide-visibility
                   link-prefix="manage"
@@ -55,12 +50,12 @@
               </v-tab-item>
 
               <v-tab-item>
-                <assessments-timeline
+                <!-- <assessments-timeline
                   v-if="data"
                   :assessments="data.assessments"
                   :schedule="data.course.schedule"
-                  :code="data.course.code"
-                />
+                  :code="courseCode"
+                /> -->
               </v-tab-item>
             </v-tabs-items>
           </v-card-text>
@@ -72,18 +67,22 @@
         md="3"
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
-        <assessments-list-info-panel
+        <!-- <assessments-list-info-panel
           v-if="data?.assessments"
           :assessments="data.assessments"
           class="mb-5"
-          :code="data.course.code"
-        />
+          :code="courseCode"
+        /> -->
 
-        <course-schedule-panel
-          :loading="!!isLoading"
-          :schedule="data?.course.schedule"
-        />
+        <course-schedule-panel :course-code="courseCode" />
       </v-col>
+
+      <actions-menu
+        :create-link="{
+          name: 'manage-courses-code-assessments-create',
+          params: { code: courseCode },
+        }"
+      />
     </v-row>
 
     <div v-else>{{ $t('error.unexpected') }}</div>
@@ -91,8 +90,11 @@
 </template>
 
 <script>
+import titles from '@/mixins/titles.js'
+
 export default {
   name: 'ManageCourseAssessmentsPage',
+  mixins: [titles],
   data() {
     return {
       currentTab: 0,
@@ -101,8 +103,13 @@ export default {
   },
   head() {
     return {
-      title: this.title + ' | ' + this.$t('global.spaces.teach'),
+      title: this.getTitle(this.title, 'assessment._', 'manage'),
     }
+  },
+  computed: {
+    courseCode() {
+      return this.$route.params.code
+    },
   },
   methods: {
     // hasTimeline(course, assessments) {
@@ -121,8 +128,8 @@ export default {
 
     //   return hasMinDate && hasMaxDate
     // },
-    setTitle({ data }) {
-      this.title = data.course?.name ?? ''
+    setTitle({ data: course }) {
+      this.title = course?.name ?? ''
     },
   },
   meta: {

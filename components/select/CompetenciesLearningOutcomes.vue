@@ -26,6 +26,7 @@
         <v-col cols="12" md="2">
           <v-text-field-with-validation
             v-model="learningOutcome.takes"
+            clearable
             dense
             type="number"
             rules="positive"
@@ -107,7 +108,7 @@ export default {
     },
     removeLearningOutcome(index) {
       if (!this.disabled) {
-        this.learningOutcomes = this.learningOutcomes.splice(index, 1)
+        this.learningOutcomes.splice(index, 1)
       }
     },
   },
