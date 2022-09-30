@@ -1,5 +1,38 @@
 query GetLearnerEvaluations($assessment: ID!, $courseCode: ID!, $learner: ID!) {
-  evaluations(assessment: $assessment, courseCode: $courseCode, learner: $learner) {
+  assessment(id: $assessment) {
+    competencies {
+      competency {
+        code
+      }
+      isOptional
+    }
     id
+    instances
+    isIncremental
+    takes
+  }
+
+  assessmentInstances(assessment: $assessment, learner: $learner) {
+    datetime
+    id
+  }
+
+  evaluations(
+    assessment: $assessment
+    courseCode: $courseCode
+    learner: $learner
+  ) {
+    competencies {
+      competency {
+        code
+      }
+      learningOutcomes
+      selected
+    }
+    id
+    instance {
+      id
+    }
+    isPublished
   }
 }

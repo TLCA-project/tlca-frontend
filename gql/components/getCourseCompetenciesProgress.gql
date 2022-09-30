@@ -1,0 +1,28 @@
+query GetCourseCompetenciesProgress($courseCode: ID!) {
+  course(code: $courseCode) {
+    code
+    competencies {
+      category
+      competency {
+        code
+        name
+      }
+      subcategory
+      useLearningOutcomes
+    }
+    isRegistered
+  }
+
+  registration(courseCode: $courseCode) {
+    id
+    progress {
+      competencies {
+        competency {
+          code
+        }
+        learningOutcomes
+        progress
+      }
+    }
+  }
+}

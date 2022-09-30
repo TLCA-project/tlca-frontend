@@ -5,22 +5,14 @@ query GetCourseCompetencies($courseCode: ID!) {
       category
       competency {
         code
+        description
+        learningOutcomes {
+          name
+        }
         name
       }
       subcategory
-    }
-    isRegistered
-    name
-    schedule {
-      name
-      datetime
-    }
-  }
-
-  registration(courseCode: $courseCode) {
-    progress {
-      advanced
-      basic
+      useLearningOutcomes
     }
   }
 }

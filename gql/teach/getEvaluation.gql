@@ -1,28 +1,29 @@
 query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
   course(code: $courseCode) {
     code
-    schedule {
-      datetime
-      name
-    }
+    isCoordinator
+    isTeacher
   }
 
   evaluation(id: $evaluationId) {
     assessment {
       id
-      code
       name
     }
-    course {
-      code
+    comment
+    competencies {
+      checklist {
+        public
+      }
+      competency {
+        code
+      }
+      learningOutcomes
+      selected
     }
-    date
     id
     isPublished
-    learner {
-      displayName
-      username
-    }
+    note
     published
     status
   }

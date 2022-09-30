@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div v-if="items?.length">
     <i>{{ name }}</i>
 
-    <v-list class="pa-0 mt-2">
+    <v-list class="pa-0">
       <v-list-item v-for="(item, i) in items" :key="i" class="line pl-3" dense>
         <v-list-item-content class="pa-0">
           <v-list-item-title>
@@ -10,8 +10,9 @@
               v-model="checked[i]"
               class="ml-1"
               dense
-              :readonly="!form"
+              :disabled="disabled"
               hide-details
+              :readonly="!form"
             >
               <span slot="label" class="text-subtitle-2">{{ item }}</span>
             </v-checkbox>
@@ -26,13 +27,17 @@
 export default {
   name: 'CompetencyCheckList',
   props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     form: {
       type: Boolean,
       default: false,
     },
     items: {
       type: Array,
-      required: true,
+      default: null,
     },
     name: {
       type: String,
@@ -46,7 +51,10 @@ export default {
   computed: {
     checked: {
       get() {
-        return this.value
+        if (this.value?.length) {
+          return this.value
+        }
+        return this.items.map((_) => false)
       },
       set(value) {
         this.$emit('input', value)
