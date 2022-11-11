@@ -7,6 +7,8 @@ query GetAssessmentsCompetencies($courseCode: ID!) {
         name
       }
       stars
+      isOptional
+      learningOutcomes
     }
     id
     name
@@ -17,7 +19,11 @@ query GetAssessmentsCompetencies($courseCode: ID!) {
     competencies {
       competency {
         code
+        learningOutcomes {
+          name
+        }
       }
+      useLearningOutcomes
     }
   }
 }

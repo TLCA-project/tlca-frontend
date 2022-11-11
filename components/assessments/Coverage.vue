@@ -92,7 +92,7 @@ export default {
       return headers
     },
     items() {
-      // For each competency, get the stars earnable by this assignment.
+      // For each competency, get the stars/LOs earnable via this assignment.
       const items = []
 
       // Collect ids of assessments that must be shown.
@@ -111,8 +111,9 @@ export default {
         isSelectable: false,
         itemStyle: 'totalRow',
       }
-      for (const { competency } of this.competencies) {
-        totalStars[competency.code] = 0
+      for (const { competency, useLearningOutcomes } of this.competencies) {
+        if (useLearningOutcomes) totalStars[competency.code] = '-'
+        else totalStars[competency.code] = 0
       }
 
       for (const assessmentId of idToShow) {
@@ -125,10 +126,30 @@ export default {
         }
         const assessmentComp = {}
 
-        // Collect star information for this assigment in a dict instead of a list.
+        // Collect info about course competencies and LO usage
+
+        const courseComp = {}
+        // console.log(this.competencies)
+        for (const { competency, useLearningOutcomes } of this.competencies) {
+          courseComp[competency.code] = {
+            usesLOs: useLearningOutcomes,
+            numLOs: competency.learningOutcomes?.length,
+          }
+        }
+        // Collect star/LO information for this assigment in a dict instead of a list.
         let passFilter = false
-        for (const { competency, stars } of assessment.competencies) {
-          assessmentComp[competency.code] = stars
+        for (const {
+          competency,
+          stars,
+          learningOutcomes,
+        } of assessment.competencies) {
+          if (courseComp[competency.code].usesLOs)
+            assessmentComp[competency.code] =
+              'LO : ' +
+              learningOutcomes.length +
+              '/' +
+              courseComp[competency.code].numLOs
+          else assessmentComp[competency.code] = stars
           if (this.selectedFilter === competency.code) passFilter = true
         }
 
@@ -141,7 +162,8 @@ export default {
             row[competency.code] = assessmentComp[competency.code]
 
             // Update total.
-            totalStars[competency.code] += assessmentComp[competency.code]
+            if (!courseComp[competency.code].usesLOs)
+              totalStars[competency.code] += assessmentComp[competency.code]
           } else row[competency.code] = ''
         }
         items.push(row)
