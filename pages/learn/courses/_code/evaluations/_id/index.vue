@@ -1,14 +1,13 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
   <ApolloQuery
-    v-slot="{ isLoading, result: { data, error } }"
-    :query="require('~/gql/learn/getCourseEvaluation.gql')"
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/learn/getEvaluation.gql')"
     :variables="{ courseCode, evaluationId }"
-    @result="setTitle"
+    @result="setResult"
   >
     <page-title :loading="!!isLoading" :value="title" />
 
-    <v-row v-if="!error && data?.course?.isRegistered">
+    <v-row v-if="!error && canShowContent">
       <v-col cols="12" md="9">
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
@@ -19,23 +18,51 @@
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
-                <h4>{{ $t('evaluation.comment._') }}</h4>
+                <div v-if="showCompetencies">
+                  <h4>{{ $tc('competency._', 2) }}</h4>
 
-                <div
-                  v-if="data?.evaluation?.comment"
-                  v-html="data?.evaluation.comment"
-                />
-                <div v-else>{{ $t('evaluation.comment.no') }}</div>
+                  <assessment-competencies-list
+                    v-if="evaluation"
+                    :assessment-id="evaluation.assessment.id"
+                    :course-code="courseCode"
+                    :selected="evaluation.competencies"
+                    student-view
+                  />
+                </div>
 
-                <h4>{{ $tc('competency._', 2) }}</h4>
+                <div v-if="showComment">
+                  <h4>{{ $t('evaluation.comment._') }}</h4>
 
-                <evaluation-assessment-competencies-form
-                  :assessment-id="data?.evaluation?.assessment.id"
-                  :course-code="courseCode"
-                  readonly
-                  :teacher-view="false"
-                  :value="selectedCompetencies(data?.evaluation?.competencies)"
-                />
+                  <description-content
+                    entity="evaluation.comment"
+                    :text="evaluation?.comment"
+                  />
+                </div>
+
+                <div v-if="showRejectionReason">
+                  <h4>{{ $t('evaluation.rejectionReason') }}</h4>
+
+                  <description-content :text="evaluation?.rejectionReason" />
+                </div>
+
+                <div v-if="showExplanation">
+                  <h4>{{ $t('evaluation.explanation._') }}</h4>
+
+                  <description-content
+                    entity="evaluation.explanation"
+                    :text="evaluation?.explanation"
+                  />
+                </div>
+
+                <div v-if="showData">
+                  <h4>{{ $t('evaluation.answer.mine') }}</h4>
+
+                  <tfq-view
+                    v-if="assessment?.provider === 'tfq'"
+                    :evaluation-id="evaluationId"
+                    hide-title
+                  />
+                </div>
               </v-tab-item>
 
               <v-tab-item>
@@ -51,7 +78,8 @@
         md="3"
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
-        <evaluation-info-panel :evaluation-id="evaluationId" />
+        <evaluation-info-panel :evaluation-id="evaluationId" hide-learner />
+        <provider-info-panel class="mt-5" :evaluation-id="evaluationId" />
       </v-col>
     </v-row>
 
@@ -63,38 +91,66 @@
 import titles from '@/mixins/titles.js'
 
 export default {
-  name: 'LearnCourseEvaluationPage',
+  name: 'LearnEvaluationPage',
   mixins: [titles],
   data() {
     return {
+      assessment: null,
+      course: null,
       currentTab: 0,
+      evaluation: null,
+      instance: null,
       title: '',
     }
   },
   head() {
     return {
-      title: this.getTitle(this.title, 'evaluation._', 'learn'),
+      title: this.getTitle(this.title, null, 'learn'),
     }
   },
   computed: {
+    canShowContent() {
+      return !this.course || this.course.isRegistered
+    },
     courseCode() {
       return this.$route.params.code
     },
     evaluationId() {
       return this.$route.params.id
     },
+    hasProvider() {
+      return this.assessment?.provider
+    },
+    showComment() {
+      return !this.hasProvider && this.evaluation?.status === 'PUBLISHED'
+    },
+    showCompetencies() {
+      return !this.hasProvider || this.evaluation?.status === 'PUBLISHED'
+    },
+    showData() {
+      return this.hasProvider
+    },
+    showExplanation() {
+      return (
+        !this.hasProvider &&
+        ['ACCEPTED', 'REJECTED', 'REQUESTED'].includes(this.evaluation?.status)
+      )
+    },
+    showRejectionReason() {
+      return this.evaluation?.status === 'REJECTED'
+    },
   },
   methods: {
-    selectedCompetencies(competencies) {
-      return competencies?.map((c) => ({
-        ...c,
-        learningOutcomes: c.learningOutcomes.map((lo) => ({
-          selected: lo,
-        })),
-      }))
-    },
-    setTitle({ data }) {
-      this.title = data?.evaluation?.assessment.name ?? ''
+    setResult({ data }) {
+      if (!data) {
+        return
+      }
+
+      this.assessment = data.evaluation?.assessment
+      this.course = data.course
+      this.evaluation = data.evaluation
+      this.instance = data.evaluation?.instance
+      this.title = data.evaluation?.assessment.name ?? ''
     },
   },
   meta: {
@@ -102,3 +158,16 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.checkbox:deep(.v-input--selection-controls__input) {
+  align-self: baseline;
+}
+.checkbox-label {
+  text-align: justify;
+  white-space: normal;
+}
+.line {
+  min-height: 30px;
+}
+</style>

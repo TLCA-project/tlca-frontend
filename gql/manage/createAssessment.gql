@@ -6,6 +6,7 @@ mutation CreateAssessment(
   $createEvent: Boolean
   $description: String!
   $end: DateTime
+  $evaluationRequest: Boolean
   $incremental: Boolean
   $instances: Int
   $load: AssessmentLoadInput
@@ -24,6 +25,7 @@ mutation CreateAssessment(
     createEvent: $createEvent
     description: $description
     end: $end
+    evaluationRequest: $evaluationRequest
     incremental: $incremental
     instances: $instances
     load: $load

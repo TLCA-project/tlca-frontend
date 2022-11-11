@@ -1,3 +1,182 @@
+## 1.1.17 (2022-11-03)
+
+### Bug Fixes
+
+- fixed form display issues for mass creation of evaluations (teacher)
+
+## 1.1.17 (2022-11-02)
+
+### Features
+
+- **evaluations:** create multiple evaluations at once for several learners (teacher)
+
+### Improvements
+
+- added buttons to delete and publish an evaluation from the evaluations list page (teacher)
+
+## 1.1.16 (2022-11-01)
+
+### Features
+
+- **evaluations:** correct evaluations from assessment with the 'tfq' provider (teacher)
+- **evaluations:** display selected answers, solution and feedback for evaluations from assessment with the 'tfq' provider (student and teacher)
+
+- **registrations:** assign students to a working group (coordinator)
+
+### Improvements
+
+- hid archived courses by default in teach space (and updated the courses filter)
+- moved information about assessment with a provider to a specific panel
+
+### Code Refactoring
+
+- refactored several pieces of code in the course section of manage space (cleaning up the code structure and moving GraphQL queries inside components)
+
+## 1.1.15 (2022-10-28)
+
+### Features
+
+- **assessments:** export evaluation form for a given assessment (teacher)
+- **assessments:** show/hide the timer when taking an assessment with a provider (student)
+
+### Improvements
+
+- added information about provider in the assessment and evaluation info panels
+- changed the order of evaluation fields in creation/edit/request form and on detail page
+- displayed the provider specific answers on the evaluation detail page
+
+### Bug Fixes
+
+- **assessments:** fix issue with validation rule for the number of takes
+
+### Code Refactoring
+
+- made it possible to have more than one custom action in the actions menu
+
+## 1.1.14 (2022-10-27)
+
+### Features
+
+- **courses:** define working groups for a course (coordinator)
+- **courses:** get the list of working groups for a course (coordinator)
+
+### Improvements
+
+- added a warning to the course page when editing a published one
+- added checks for the evaluation request against the assessement dates
+- grouped assessments by categories by default
+- grouped evaluations by status by default
+
+### Bug Fixes
+
+- **evaluations:** hid the evaluation request button on assessments list when the current date is not within the assessment schedule
+- **evaluations:** fixed issue in the evaluation detail and edit pages
+
+## 1.1.13 (2022-10-24)
+
+### Bug Fixes
+
+- fixed display bug in info cards always mentioning that the entities are empty
+- fixed issue on the assessment info card with the stat line specific to teachers
+
+## 1.1.12 (2022-10-24)
+
+### Features
+
+- **assessments:** delete an instance (admin)
+- **assessments:** get the list of all instances (admin)
+
+- **evaluations:** display competencies acquired by past evaluations for incremental assessment (teacher and student)
+
+- **files:** get the list of files (resources) associated to a given course (student)
+
+- **users:** change the password with a password reset process (user)
+
+### Improvements
+
+- replaced the username column by an email column of users list page (admin)
+
+### Bug Fixes
+
+- fixed a bug on the evaluation creation page with the instance selection when changing the learner and/or the assessment in the assessment selector component
+
+## 1.1.11 (2022-10-19)
+
+### Bug Fixes
+
+- **evaluations:** fixed issue in the evaluation creation form by clearing the selected instance when it has been cleared in the assessment instance selector component
+
+## 1.1.10 (2022-10-17)
+
+- **evaluations:** accept an evaluation request (teacher)
+- **evaluations:** delete a published evaluation (teacher)
+- **evaluations:** edit a non-published or accepted evaluation (teacher)
+- **evaluations:** reject an evaluation request (teacher)
+
+### Improvements
+
+- replaced first and last names by display names in the learners list (teacher)
+
+## 1.1.9 (2022-10-15)
+
+### Features
+
+- **assessments:** take and submit an assessment that has been defined with the tfq provider (student)
+
+### Improvements
+
+- added a switch to group evaluations by status on the evaluations list page
+- added the learning outcomes progress on the competencies list page (students)
+- added the requested status for evaluations on the evaluations list page
+- hid categories column on assessments list when grouping by categories
+- improved the evaluations info card with new pieces of information (teacher)
+- toggled the new instance button automatically when creating a new evaluation for which it does not exist any instances yet
+
+### Bug Fixes
+
+- fixed the search in the learner and in the assessment select fields, to allow searching with the content
+- fixed the values shown on the evaluation detail page, depending on its status
+
+## 1.1.8 (2022-10-09)
+
+### Features
+
+- **assessments:** configure an assessment to not authorise evaluation request (coordinator)
+
+### Improvements
+
+- updated the course detail page in the teach space, by defining the missing info cards
+- changed the visibilities filter of competencies list in manage space by one to show/hide public competencies
+- updated the evaluation info panel to include additional items (evaluator, creation date, assessment and learner)
+
+### Bug Fixes
+
+- fixed issue with takes field of assessment that was not taken into account upon edit
+- hid the competency archive button if the connected user is not its owner
+
+### Code Refactoring
+
+- defined a component to display a list of stats (for info cards)
+
+## 1.1.7 (2022-10-08)
+
+### Features
+
+- **competencies:** archive a competency (coordinator)
+- **competencies:** include archived competencies with the competencies filter, they are hidden by default (coordinator)
+
+- **evaluations:** request an evaluation (student)
+
+### Improvements
+
+- changed the french translation of 'evaluation'
+- added information in several info panels (assessment and competency)
+
+### Code Refactoring
+
+- defined a component to display an HTML text
+- completely refactored the assessment competencies list component to have a single one that can be used as a form or just to display information
+
 ## 1.1.6 (2022-09-30)
 
 ### Improvements

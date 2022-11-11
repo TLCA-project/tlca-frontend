@@ -5,6 +5,7 @@ mutation EditAssessment(
   $createEvent: Boolean
   $description: String!
   $end: DateTime
+  $evaluationRequest: Boolean
   $id: ID!
   $incremental: Boolean
   $instances: Int
@@ -12,6 +13,7 @@ mutation EditAssessment(
   $name: String!
   $oralDefense: Boolean
   $start: DateTime
+  $takes: Int
 ) {
   editAssessment(
     category: $category
@@ -20,6 +22,7 @@ mutation EditAssessment(
     createEvent: $createEvent
     description: $description
     end: $end
+    evaluationRequest: $evaluationRequest
     id: $id
     incremental: $incremental
     instances: $instances
@@ -27,6 +30,7 @@ mutation EditAssessment(
     name: $name
     oralDefense: $oralDefense
     start: $start
+    takes: $takes
   ) {
     id
   }

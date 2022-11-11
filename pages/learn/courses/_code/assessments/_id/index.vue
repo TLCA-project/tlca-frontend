@@ -1,14 +1,13 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
   <ApolloQuery
-    v-slot="{ isLoading, result: { data, error } }"
-    :query="require('~/gql/learn/getCourseAssessment.gql')"
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/learn/getAssessment.gql')"
     :variables="{ courseCode, assessmentId }"
-    @result="setTitle"
+    @result="setResult"
   >
     <page-title :loading="!!isLoading" :value="title" />
 
-    <v-row v-if="!error && data?.course?.isRegistered">
+    <v-row v-if="!error && canShowContent">
       <v-col cols="12" md="9">
         <v-card :loading="!!isLoading">
           <v-tabs v-model="currentTab" show-arrows>
@@ -19,13 +18,17 @@
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
-                <div v-html="data?.assessment.description" />
+                <description-content
+                  entity="assessment.description"
+                  :text="assessment?.description"
+                />
               </v-tab-item>
 
               <v-tab-item>
                 <assessment-competencies-list
                   :assessment-id="assessmentId"
                   :course-code="courseCode"
+                  student-view
                 />
               </v-tab-item>
             </v-tabs-items>
@@ -41,16 +44,10 @@
         <assessment-info-panel :assessment-id="assessmentId" />
         <assessment-schedule-panel :assessment-id="assessmentId" class="mt-5" />
 
-        <v-btn
-          v-if="data?.assessment.provider"
-          class="mt-5"
-          color="success"
-          :loading="createEvaluation"
-          small
-          @click="take(data?.assessment.id)"
-        >
-          Take
-        </v-btn>
+        <actions-menu
+          :custom-actions="customActions"
+          @customActionClicked="onCustomActionClicked"
+        />
       </v-col>
     </v-row>
 
@@ -66,6 +63,8 @@ export default {
   mixins: [titles],
   data() {
     return {
+      assessment: null,
+      course: null,
       createEvaluation: false,
       currentTab: 0,
       title: '',
@@ -77,19 +76,52 @@ export default {
     }
   },
   computed: {
+    canShowContent() {
+      return !this.course || this.course.isRegistered
+    },
     assessmentId() {
       return this.$route.params.id
     },
     courseCode() {
       return this.$route.params.code
     },
+    customActions() {
+      if (!this.assessment || !this.assessment.provider) {
+        return null
+      }
+
+      return [
+        {
+          icon: 'mdi-clipboard-edit',
+          key: 'take',
+          tooltip: this.$t('assessment.take._'),
+        },
+      ]
+    },
   },
   methods: {
-    setTitle({ data }) {
-      this.title = data?.assessment?.name ?? ''
+    async onCustomActionClicked(key) {
+      switch (key) {
+        case 'take':
+          return await this.take(this.assessmentId)
+      }
+    },
+    setResult({ data }) {
+      if (!data) {
+        return
+      }
+
+      this.assessment = data.assessment
+      this.course = data.course
+      this.title = data.assessment?.name ?? ''
     },
     async take(id) {
+      if (this.createEvaluation) {
+        return
+      }
+
       this.createEvaluation = true
+
       try {
         const mutation = require(`~/gql/learn/createAssessmentInstance.gql`)
         const response = await this.$apollo
@@ -100,19 +132,16 @@ export default {
           .then(({ data }) => data && data.createAssessmentInstance)
 
         if (response) {
-          this.$notificationManager.displaySuccessMessage('SUCCESS')
           this.$router.push({
-            name: 'learn-courses-code-assessments-id-take-uid',
+            name: 'learn-courses-code-assessments-id-take-iid',
             params: {
               code: this.courseCode,
               id: this.$route.params.id,
-              uid: response.id,
+              iid: response.id,
             },
           })
         }
-      } catch (err) {
-        this.$notificationManager.displayErrorMessage('ERROR')
-      }
+      } catch (err) {}
 
       this.createEvaluation = false
     },

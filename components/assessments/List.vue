@@ -10,7 +10,7 @@
       :group-desc="false"
       :headers="dataHeaders"
       :items="assessments(data?.assessments)"
-      :items-per-page="10"
+      :items-per-page="-1"
       :loading="!!isLoading"
       @click:row="goToAssessment"
     >
@@ -86,7 +86,7 @@ export default {
   },
   data() {
     return {
-      groupByCategory: false,
+      groupByCategory: true,
     }
   },
   computed: {
@@ -96,11 +96,14 @@ export default {
           text: this.$t('assessment.name'),
           value: 'name',
         },
-        {
+      ]
+
+      if (!this.groupByCategory) {
+        headers.push({
           text: this.$t('assessment.category._'),
           value: 'category',
-        },
-      ]
+        })
+      }
 
       if (!this.hideVisibility) {
         headers.push({

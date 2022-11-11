@@ -1,0 +1,34 @@
+query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
+  course(code: $courseCode) {
+    code
+    isRegistered
+  }
+
+  evaluation(id: $evaluationId) {
+    assessment {
+      id
+      name
+      provider
+    }
+    comment
+    competencies {
+      checklist {
+        public
+      }
+      competency {
+        code
+      }
+      learningOutcomes
+      selected
+    }
+    data
+    explanation
+    id
+    instance {
+      content
+      id
+    }
+    rejectionReason
+    status
+  }
+}

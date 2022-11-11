@@ -3,11 +3,12 @@
     <v-speed-dial
       v-if="showActionsMenu"
       v-model="fab"
+      bottom
       class="fab"
-      fixed
-      :bottom="true"
       direction="top"
-      :right="true"
+      fixed
+      open-on-hover
+      right
       transition="slide-y-reverse-transition"
     >
       <template #activator>
@@ -49,6 +50,32 @@
       >
         <v-icon>mdi-delete</v-icon>
       </v-btn>
+
+      <template v-if="customActions">
+        <v-tooltip
+          v-for="(action, i) in customActions"
+          :key="i"
+          :disabled="!action.tooltip"
+          left
+          open-delay="500"
+        >
+          <template #activator="{ on, attrs }">
+            <v-btn
+              color="primary"
+              dark
+              fab
+              small
+              v-bind="attrs"
+              v-on="on"
+              @click.stop="() => $emit('customActionClicked', action.key)"
+            >
+              <v-icon>{{ action.icon }}</v-icon>
+            </v-btn>
+          </template>
+
+          <span>{{ action.tooltip }}</span>
+        </v-tooltip>
+      </template>
     </v-speed-dial>
 
     <!-- Delete confirmation dialog -->
@@ -79,7 +106,7 @@
             :disabled="loading"
             :loading="loading"
             text
-            @click="deleteObject"
+            @click="deleteEntity"
           >
             {{ $t('general.delete') }}
           </v-btn>
@@ -95,6 +122,10 @@ export default {
   props: {
     createLink: {
       type: Object,
+      default: null,
+    },
+    customActions: {
+      type: Array,
       default: null,
     },
     deleteAction: {
@@ -115,14 +146,19 @@ export default {
   },
   computed: {
     showActionsMenu() {
-      return !!this.createLink || !!this.deleteAction || !!this.editLink
+      return (
+        !!this.createLink ||
+        (!!this.customActions && this.customActions.length > 0) ||
+        !!this.deleteAction ||
+        !!this.editLink
+      )
     },
   },
   methods: {
     cancelDelete() {
       this.dialog = false
     },
-    async deleteObject() {
+    async deleteEntity() {
       this.loading = true
 
       const { object } = this.deleteAction

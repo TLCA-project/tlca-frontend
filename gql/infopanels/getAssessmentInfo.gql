@@ -1,5 +1,6 @@
-query GetAssessmentInfo($id: ID!) {
+query GetAssessmentInfo($id: ID!, $teacherView: Boolean!) {
   assessment(id: $id) {
+    evaluationRequest @include(if: $teacherView)
     hasOralDefense
     id
     instances
@@ -7,6 +8,7 @@ query GetAssessmentInfo($id: ID!) {
       defense
       work
     }
+    takes
     type
   }
 }

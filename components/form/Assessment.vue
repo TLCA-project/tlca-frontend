@@ -54,7 +54,7 @@
           </v-row>
         </stepper-step>
 
-        <stepper-step step="2" :title="$t('assessment.takes')">
+        <stepper-step step="2" :title="$t('assessment.takes._')">
           <v-row>
             <v-col cols="12" md="4">
               <v-text-field-with-validation
@@ -68,7 +68,7 @@
               />
             </v-col>
 
-            <v-col cols="12" md="2">
+            <v-col cols="12" md="4">
               <v-switch
                 v-model="isIncremental"
                 class="ml-3"
@@ -83,8 +83,8 @@
                 v-model="takes"
                 clearable
                 :hint="$t('general.max_nb')"
-                :label="$t('assessment.takes')"
-                rules="positive"
+                :label="$t('assessment.takes._')"
+                rules="min_value:2"
                 type="number"
                 vid="takes"
               />
@@ -94,7 +94,7 @@
           <v-row>
             <v-col cols="12" md="4" />
 
-            <v-col cols="12" md="2">
+            <v-col cols="12" md="4">
               <v-switch
                 v-model="isPhased"
                 class="ml-3"
@@ -165,12 +165,25 @@
         </stepper-step>
 
         <stepper-step step="5" :title="$t('general.information.additional')">
-          <v-switch
-            v-model="hasOralDefense"
-            class="ml-3"
-            dense
-            :label="$t('assessment.oral_defense')"
-          />
+          <v-row>
+            <v-col cols="12" md="6">
+              <v-switch
+                v-model="hasOralDefense"
+                class="ml-3"
+                dense
+                :label="$t('assessment.oral_defense')"
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-switch
+                v-model="evaluationRequest"
+                class="ml-3"
+                dense
+                :label="$t('assessment.evaluation_request')"
+              />
+            </v-col>
+          </v-row>
         </stepper-step>
 
         <stepper-step step="6" :title="$t('global.workload')">
@@ -261,6 +274,7 @@ export default {
       createEvent: false,
       description: '',
       end: '',
+      evaluationRequest: false,
       formBusy: false,
       formError: null,
       hasOralDefense: false,
@@ -306,6 +320,9 @@ export default {
         ? this.$t('assessment.competencies._')
         : this.$tc('assessment.phase._', this.nbPhases)
     },
+    courseCode() {
+      return this.$route.params.code
+    },
   },
   mounted() {
     this.reset()
@@ -332,6 +349,7 @@ export default {
       //   this.createEvent = false
       this.description = assessment?.description ?? ''
       this.end = assessment?.end ?? ''
+      this.evaluationRequest = assessment?.evaluationRequest ?? false
       this.hasOralDefense = assessment?.hasOralDefense ?? false
       this.instances = assessment?.instances ?? ''
       this.isIncremental = assessment?.isIncremental ?? false
@@ -344,7 +362,7 @@ export default {
         work: load?.work ?? '',
       }
       this.start = assessment?.start ?? ''
-      this.takes = ''
+      this.takes = assessment?.takes ?? ''
     },
     resetForm() {
       this.reset()
@@ -382,6 +400,7 @@ export default {
         createEvent: this.createEvent,
         description: this.description,
         end: this.end,
+        evaluationRequest: this.evaluationRequest,
         incremental: this.isIncremental,
         instances: parseInt(this.instances, 10),
         load,
@@ -396,7 +415,7 @@ export default {
       if (this.edit) {
         data.id = this.assessment.id
       } else {
-        data.course = this.$route.params.code
+        data.course = this.courseCode
       }
       const mutation = require(`~/gql/manage/${this.action}Assessment.gql`)
 
@@ -416,7 +435,7 @@ export default {
           )
           this.$router.push({
             name: 'manage-courses-code-assessments-id',
-            params: { code: this.$route.params.code, id },
+            params: { code: this.courseCode, id },
           })
           return
         }

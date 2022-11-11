@@ -8,13 +8,16 @@
           <v-list-item-content class="pa-0">
             <v-list-item-title>
               <v-checkbox
-                v-model="learningOutcomes[i].selected"
+                v-model="selected"
                 class="checkbox ml-1"
+                :color="past[i] ? 'gray' : 'primary'"
                 dense
-                :disabled="disabled || learningOutcomes[i].disabled"
+                :disabled="disabled[i]"
                 hide-details
                 :readonly="!form"
-                @change="$emit('change', value)"
+                :ripple="form"
+                :value="i"
+                @change="update"
               >
                 <span slot="label" class="checkbox-label text-body-2">
                   {{ item.name }}
@@ -24,7 +27,9 @@
           </v-list-item-content>
 
           <v-list-item-action v-if="!hideTakes" class="align-self-baseline">
-            <v-chip x-small>{{ item.takes ?? 1 }}</v-chip>
+            <v-chip :color="takesColor(i)" x-small>
+              {{ takesProgress(i) }}
+            </v-chip>
           </v-list-item-action>
         </v-list-item>
 
@@ -42,10 +47,6 @@
 export default {
   name: 'LearningOutcomesAssessmentList',
   props: {
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
     form: {
       type: Boolean,
       default: false,
@@ -62,6 +63,10 @@ export default {
       type: Array,
       default: null,
     },
+    takes: {
+      type: Array,
+      default: null,
+    },
     title: {
       type: String,
       default: null,
@@ -71,17 +76,49 @@ export default {
       default: () => [],
     },
   },
-  computed: {
-    learningOutcomes: {
-      get() {
-        if (this.value?.length) {
-          return this.value
-        }
-        return this.items.map((_) => ({ disabled: false, selected: false }))
+  data() {
+    return {
+      disabled: [],
+      past: [],
+      selected: [],
+    }
+  },
+  watch: {
+    items: {
+      handler: 'update',
+      immediate: true,
+    },
+    value: {
+      handler(value) {
+        this.disabled = value.map((item) => item.disabled)
+        this.past = value.map((item) => item.past)
+        this.selected = value.reduce(
+          (acc, item, i) => (item.selected ? [...acc, i] : acc),
+          []
+        )
       },
-      set(value) {
-        this.$emit('input', value)
-      },
+      immediate: true,
+    },
+  },
+  methods: {
+    takesColor(i) {
+      if (!this.takes) {
+        return 'default'
+      }
+
+      const maxTakes = this.items[i]?.takes ?? 1
+      return this.takes[i] === maxTakes ? 'success' : 'default'
+    },
+    takesProgress(i) {
+      const maxTakes = this.items[i]?.takes ?? 1
+      return this.takes ? `${this.takes[i]} / ${maxTakes}` : maxTakes
+    },
+    update() {
+      const result = this.items?.map((_, i) => ({
+        disabled: this.disabled[i] ?? false,
+        selected: this.selected.includes(i),
+      }))
+      this.$emit('input', result)
     },
   },
 }

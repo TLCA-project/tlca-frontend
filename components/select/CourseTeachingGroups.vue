@@ -50,6 +50,7 @@
 
         <v-col cols="12" md="6">
           <v-btn
+            class="mb-1"
             :disabled="!teachers.length || disabled"
             small
             @click="addGroup"
@@ -67,7 +68,7 @@
 import { ValidationProvider } from 'vee-validate'
 
 export default {
-  name: 'SelectCourseGroups',
+  name: 'SelectCourseTeachingGroups',
   components: { ValidationProvider },
   props: {
     disabled: {
