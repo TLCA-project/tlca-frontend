@@ -84,15 +84,13 @@ export default {
 
       const items = {}
 
-      if (this.course.isPublished || this.course.isArchived) {
-        items.home = {
-          name: 'courses-code',
-          params: { code: this.courseCode },
-        }
-        items.teach = {
-          name: 'teach-courses-code',
-          params: { code: this.courseCode },
-        }
+      items.home = {
+        name: 'courses-code',
+        params: { code: this.courseCode },
+      }
+      items.teach = {
+        name: 'teach-courses-code',
+        params: { code: this.courseCode },
       }
 
       return items
